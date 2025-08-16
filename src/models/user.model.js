@@ -6,7 +6,7 @@ const userSchema = new Schema(
     {
         username: {
             type: String,
-            requierd: true,
+            required: true,
             unique: true,
             lowercase: true,
             trim: true,
@@ -14,20 +14,20 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            requierd: true,
+            required: true,
             unique: true,
             lowercase: true,
             trim: true,
         },
         fullName: {
             type: String,
-            requierd: true,
+            required: true,
             trim: true,
             index: true
         },
         avatar: {
             type: String, // cloudinary url stored as string
-            requierd: true,
+            required: true,
         },
         coverImage: {
             type: String,
@@ -74,9 +74,9 @@ userSchema.methods.generateAccessToken = function() {
             username: this.username,
             fullName: this.fullName
         },
-        // access token
+        // access token secret key
         process.env.ACCESS_TOKEN_SECRET,
-        // access token expiry
+        // options: access token expiry
         {
             expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
@@ -87,9 +87,9 @@ userSchema.methods.generateRefreshToken = function() {
         {   // payload
             _id: this._id,
         },
-        // refresh token
+        // refresh token secret key
         process.env.REFRESH_TOKEN_SECRET,
-        // refresh token expiry
+        // options: refresh token expiry
         {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
